@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEURALX 2.0 | Inscription</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050818; --panel:#0b1030; --line:#1d2a63; --text:#e8ecff; --muted:#8e9ad0;
+  --pink:#e040fb; --cyan:#27c4ff; --grad:linear-gradient(135deg,#e040fb 0%,#7b5cff 50%,#27c4ff 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; color:var(--text); font:16px/1.6 'Manrope',system-ui,sans-serif;
+  background:
+    radial-gradient(900px 500px at 8% -5%, rgba(224,64,251,.18), transparent 60%),
+    radial-gradient(900px 500px at 100% 10%, rgba(39,196,255,.16), transparent 60%),
+    var(--bg);
+  min-height:100vh; padding:0 16px 80px;
+}
+.wrap{max-width:780px; margin:0 auto}
+header{text-align:center; padding:56px 0 28px}
+.logo{
+  font-family:'Cinzel',serif; font-weight:800; letter-spacing:.04em;
+  font-size:clamp(40px,10vw,84px); line-height:1; margin:0;
+  background:var(--grad); -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 18px rgba(224,64,251,.45));
+}
+.logo b{font-size:1.25em; margin-left:.08em}
+.sub{color:var(--muted); margin:14px 0 0}
+.badges{display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-top:18px}
+.badges span{border:1px solid var(--line); background:rgba(11,16,48,.7); padding:4px 14px; border-radius:99px; font-size:14px; color:var(--cyan)}
+
+form{display:grid; gap:20px}
+fieldset{
+  border:1px solid var(--line); border-radius:14px; background:rgba(11,16,48,.78);
+  padding:22px 22px 8px; margin:0; position:relative; min-width:0;
+  box-shadow:0 0 0 1px rgba(39,196,255,.04), 0 10px 40px rgba(0,0,0,.35);
+}
+fieldset::before{
+  content:""; position:absolute; left:-1px; top:18px; bottom:18px; width:3px; border-radius:3px; background:var(--grad);
+  box-shadow:0 0 12px rgba(224,64,251,.7);
+}
+legend{
+  font-family:'Cinzel',serif; font-weight:600; font-size:19px; padding:0 10px; color:#fff;
+  text-shadow:0 0 12px rgba(39,196,255,.5);
+}
+.grid{display:grid; grid-template-columns:1fr 1fr; gap:0 16px}
+.f{margin-bottom:16px; min-width:0}
+.f.full{grid-column:1/-1}
+label.t{display:block; font-weight:700; font-size:14px; margin-bottom:6px}
+label.t i{color:var(--pink); font-style:normal}
+input[type=text],input[type=email],input[type=tel],input[type=url],input[type=number],select,textarea{
+  width:100%; background:#060a22; color:var(--text); border:1px solid var(--line);
+  border-radius:10px; padding:11px 13px; font:inherit; transition:border-color .2s, box-shadow .2s;
+}
+textarea{resize:vertical; min-height:96px}
+select{appearance:none; background-image:linear-gradient(45deg,transparent 50%,var(--cyan) 50%),linear-gradient(135deg,var(--cyan) 50%,transparent 50%); background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%; background-size:6px 6px; background-repeat:no-repeat}
+input::placeholder,textarea::placeholder{color:#4f5b8f}
+input:focus,select:focus,textarea:focus{outline:none; border-color:var(--cyan); box-shadow:0 0 0 3px rgba(39,196,255,.22), 0 0 18px rgba(39,196,255,.25)}
+
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chips label{position:relative; cursor:pointer}
+.chips input{position:absolute; opacity:0; inset:0; cursor:pointer}
+.chips span{
+  display:inline-block; padding:7px 14px; border-radius:99px; font-size:14px;
+  border:1px solid var(--line); background:#060a22; color:var(--muted); transition:.15s;
+}
+.chips input:checked + span{color:#fff; border-color:transparent; background:var(--grad); box-shadow:0 0 14px rgba(224,64,251,.45)}
+.chips input:focus-visible + span{outline:2px solid var(--cyan); outline-offset:2px}
+
+.check{display:flex; gap:12px; align-items:flex-start; margin-bottom:14px; cursor:pointer; font-size:15px}
+.check input{accent-color:var(--pink); width:18px; height:18px; margin-top:3px; flex:none}
+
+button{
+  font:inherit; font-weight:700; font-size:17px; color:#fff; border:0; cursor:pointer;
+  padding:15px 26px; border-radius:12px; background:var(--grad);
+  box-shadow:0 0 28px rgba(224,64,251,.45); transition:transform .15s, box-shadow .2s;
+}
+button:hover{transform:translateY(-2px); box-shadow:0 0 38px rgba(39,196,255,.55)}
+button:disabled{opacity:.6; cursor:wait; transform:none}
+.msg{display:none; text-align:center; border-radius:14px; padding:26px; border:1px solid var(--cyan); background:rgba(39,196,255,.08)}
+.msg.err{border-color:var(--pink); background:rgba(224,64,251,.08)}
+.msg h2{font-family:'Cinzel',serif; margin:0 0 6px}
+.hp{position:absolute; left:-9999px}
+footer{text-align:center; color:var(--muted); font-size:14px; margin-top:30px}
+:focus-visible{outline:2px solid var(--cyan); outline-offset:2px}
+@media (max-width:620px){.grid{grid-template-columns:1fr} fieldset{padding:20px 16px 6px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1 class="logo">NEURAL<b>X</b></h1>
+    <p class="sub">Hackathon Data de 3 jours · Édition 2.0 · organisé par Dataspace</p>
+    <div class="badges"><span>3 jours</span><span>Data &amp; IA</span><span>Équipes de 3 à 5</span></div>
+  </header>
+
+  <form id="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+
+    <fieldset>
+      <legend>Informations personnelles</legend>
+      <div class="grid">
+        <div class="f"><label class="t" for="nom">Nom <i>*</i></label><input type="text" id="nom" name="nom" required></div>
+        <div class="f"><label class="t" for="prenom">Prénom <i>*</i></label><input type="text" id="prenom" name="prenom" required></div>
+        <div class="f"><label class="t" for="email">Email <i>*</i></label><input type="email" id="email" name="email" required></div>
+        <div class="f"><label class="t" for="tel">Téléphone / WhatsApp <i>*</i></label><input type="tel" id="tel" name="telephone" required placeholder="05 / 06 / 07 ..."></div>
+        <div class="f"><label class="t" for="wilaya">Wilaya de résidence <i>*</i></label><input type="text" id="wilaya" name="wilaya" required></div>
+        <div class="f"><label class="t" for="age">Âge</label><input type="number" id="age" name="age" min="15" max="70"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Parcours</legend>
+      <div class="grid">
+        <div class="f"><label class="t" for="statut">Statut <i>*</i></label>
+          <select id="statut" name="statut" required>
+            <option value="">Choisir...</option><option>Étudiant</option><option>Jeune diplômé</option><option>Professionnel</option><option>Autre</option>
+          </select></div>
+        <div class="f"><label class="t" for="etab">Université / École / Entreprise <i>*</i></label><input type="text" id="etab" name="etablissement" required></div>
+        <div class="f"><label class="t" for="spec">Spécialité <i>*</i></label><input type="text" id="spec" name="specialite" required></div>
+        <div class="f"><label class="t" for="niv">Niveau d'étude</label><input type="text" id="niv" name="niveau_etude" placeholder="Ex : 3ème année, Master 1"></div>
+        <div class="f full"><label class="t" for="liens">LinkedIn / GitHub / Kaggle</label><input type="url" id="liens" name="liens" placeholder="https://"></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Compétences</legend>
+      <div class="f"><label class="t" for="lvl">Niveau en Data <i>*</i></label>
+        <select id="lvl" name="niveau_data" required><option value="">Choisir...</option><option>Débutant</option><option>Intermédiaire</option><option>Avancé</option></select></div>
+      <div class="f"><label class="t">Outils maîtrisés</label>
+        <div class="chips">
+          <label><input type="checkbox" name="outils" value="Python"><span>Python</span></label>
+          <label><input type="checkbox" name="outils" value="R"><span>R</span></label>
+          <label><input type="checkbox" name="outils" value="SQL"><span>SQL</span></label>
+          <label><input type="checkbox" name="outils" value="Excel"><span>Excel</span></label>
+          <label><input type="checkbox" name="outils" value="Power BI"><span>Power BI</span></label>
+          <label><input type="checkbox" name="outils" value="Tableau"><span>Tableau</span></label>
+          <label><input type="checkbox" name="outils" value="Pandas"><span>Pandas</span></label>
+          <label><input type="checkbox" name="outils" value="Scikit-learn"><span>Scikit-learn</span></label>
+          <label><input type="checkbox" name="outils" value="TensorFlow/PyTorch"><span>TensorFlow / PyTorch</span></label>
+          <label><input type="checkbox" name="outils" value="Git"><span>Git</span></label>
+        </div></div>
+      <div class="f"><label class="t">Domaines d'intérêt</label>
+        <div class="chips">
+          <label><input type="checkbox" name="domaines" value="Machine Learning"><span>Machine Learning</span></label>
+          <label><input type="checkbox" name="domaines" value="Deep Learning"><span>Deep Learning</span></label>
+          <label><input type="checkbox" name="domaines" value="NLP"><span>NLP</span></label>
+          <label><input type="checkbox" name="domaines" value="Computer Vision"><span>Computer Vision</span></label>
+          <label><input type="checkbox" name="domaines" value="Data Engineering"><span>Data Engineering</span></label>
+          <label><input type="checkbox" name="domaines" value="Data Visualization"><span>Data Visualization</span></label>
+          <label><input type="checkbox" name="domaines" value="Statistiques"><span>Statistiques</span></label>
+        </div></div>
+      <div class="f"><label class="t" for="role">Rôle préféré dans l'équipe</label>
+        <select id="role" name="role"><option value="">Choisir...</option><option>Data Analyst</option><option>ML Engineer</option><option>Data Engineer</option><option>Visualisation &amp; Dashboard</option><option>Pitch &amp; Business</option></select></div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Équipe</legend>
+      <div class="grid">
+        <div class="f full"><label class="t" for="mode">Tu participes <i>*</i></label>
+          <select id="mode" name="mode_participation" required><option value="">Choisir...</option><option value="equipe">En équipe</option><option value="solo">Seul(e), je cherche une équipe</option></select></div>
+      </div>
+      <div id="teamBox" style="display:none">
+        <div class="grid">
+          <div class="f"><label class="t" for="tname">Nom de l'équipe</label><input type="text" id="tname" name="nom_equipe"></div>
+          <div class="f"><label class="t" for="tsize">Nombre de membres</label>
+            <select id="tsize" name="nombre_membres"><option value="">Choisir...</option><option>3</option><option>4</option><option>5</option></select></div>
+          <div class="f full"><label class="t" for="members">Membres (nom, email, téléphone, un par ligne)</label>
+            <textarea id="members" name="membres" placeholder="Nom Prénom, email, téléphone"></textarea></div>
+          <div class="f full"><label class="t" for="chef">Chef d'équipe (contact principal)</label><input type="text" id="chef" name="chef_equipe"></div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Motivation</legend>
+      <div class="f"><label class="t" for="motiv">Pourquoi veux-tu participer à NEURALX 2.0 ? <i>*</i></label><textarea id="motiv" name="motivation" required maxlength="600"></textarea></div>
+      <div class="grid">
+        <div class="f"><label class="t" for="hack">Déjà participé à un hackathon ?</label>
+          <select id="hack" name="deja_hackathon"><option value="">Choisir...</option><option>Non</option><option>Oui</option></select></div>
+        <div class="f"><label class="t" for="nx1">Déjà participé à NEURALX 1.0 ?</label>
+          <select id="nx1" name="neuralx_1"><option value="">Choisir...</option><option>Non</option><option>Oui</option></select></div>
+        <div class="f full"><label class="t" for="learn">Qu'est-ce que tu veux apprendre pendant ces 3 jours ?</label><textarea id="learn" name="apprentissage" style="min-height:70px"></textarea></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Logistique</legend>
+      <div class="grid">
+        <div class="f"><label class="t" for="laptop">Tu viens avec ton laptop ? <i>*</i></label>
+          <select id="laptop" name="laptop" required><option value="">Choisir...</option><option>Oui</option><option>Non</option></select></div>
+        <div class="f"><label class="t" for="heb">Besoin d'hébergement ? <i>*</i></label>
+          <select id="heb" name="hebergement" required><option value="">Choisir...</option><option>Oui</option><option>Non</option></select></div>
+        <div class="f"><label class="t" for="diet">Régime alimentaire / allergies</label><input type="text" id="diet" name="regime"></div>
+        <div class="f"><label class="t" for="tshirt">Taille de T-shirt</label>
+          <select id="tshirt" name="tshirt"><option value="">Choisir...</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option></select></div>
+        <div class="f full"><label class="t" for="src">Comment as-tu connu l'événement ?</label>
+          <select id="src" name="source"><option value="">Choisir...</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>Ami</option><option>Club</option><option>Autre</option></select></div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>Engagement</legend>
+      <label class="check"><input type="checkbox" name="engagement_presence" required><span>Je m'engage à être présent(e) pendant les 3 jours de l'événement.</span></label>
+      <label class="check"><input type="checkbox" name="accept_reglement" required><span>J'ai lu et j'accepte le règlement du hackathon.</span></label>
+      <label class="check"><input type="checkbox" name="accept_photos" required><span>J'accepte que mes photos soient utilisées dans la communication de Dataspace.</span></label>
+      <label class="check"><input type="checkbox" name="accept_donnees" required><span>J'accepte que mes données soient utilisées uniquement pour l'organisation de l'événement.</span></label>
+    </fieldset>
+
+    <button type="submit" id="btn">Envoyer mon inscription</button>
+
+    <div class="msg" id="ok"><h2>Inscription envoyée</h2><p>Merci ! Tu vas recevoir un email de confirmation. Rejoins le groupe pour les mises à jour : <a href="#" style="color:var(--cyan)">lien WhatsApp / Discord</a></p></div>
+    <div class="msg err" id="ko"><h2>Envoi impossible</h2><p>Vérifie ta connexion puis réessaie.</p></div>
+  </form>
+
+  <footer>NEURALX 2.0 · Dataspace</footer>
+</div>
+
+<script>
+const form = document.getElementById('form');
+const mode = document.getElementById('mode');
+const teamBox = document.getElementById('teamBox');
+mode.addEventListener('change', () => {
+  teamBox.style.display = mode.value === 'equipe' ? 'block' : 'none';
+});
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('btn');
+  btn.disabled = true; btn.textContent = 'Envoi...';
+  document.getElementById('ko').style.display = 'none';
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' }
+    });
+    if (!res.ok) throw new Error();
+    form.querySelectorAll('fieldset,button').forEach(el => el.style.display = 'none');
+    document.getElementById('ok').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    document.getElementById('ko').style.display = 'block';
+    btn.disabled = false; btn.textContent = 'Envoyer mon inscription';
+  }
+});
+</script>
+</body>
+</html>
