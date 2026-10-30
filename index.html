@@ -283,8 +283,7 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
     <div class="badges"><span>3 jours</span><span>Data &amp; IA</span><span>Équipes de 5</span></div>
   </header>
 
-  <form id="form" action="https://script.google.com/macros/s/AKfycbxGC2P3_gcZFbO48hcSPY1eofn5fqDdrU2Q_ZXWn50w2uKqEkuFNxOGDm2EPUozeby8/exec" method="POST">
-    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
+  <form id="form" action="https://script.google.com/macros/s/AKfycbyUjiHx5XQtSCwLsmINmQ46kasoPz7GI96pFUTfKBv17Tcrw8Be9xXEbegW2UEcMYurKw/exec" method="POST">    <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off">
 
     <fieldset>
       <legend>Informations personnelles</legend>
@@ -305,9 +304,23 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
         <div class="f"><label class="t" for="etab">Université / École <i>*</i></label><input type="text" id="etab" name="etablissement" required></div>
         <div class="f"><label class="t" for="spec">Spécialité <i>*</i></label><input type="text" id="spec" name="specialite" required></div>
         <div class="f"><label class="t" for="niv">Niveau d'étude <i>*</i></label><input type="text" id="niv" name="niveau_etude" required placeholder="Ex : 3ème année, Master 1"></div>
-        <div class="f"><label class="t" for="liens">Lien de ton profil LinkedIn / GitHub / Kaggle</label><input type="url" id="liens" name="liens" placeholder="https://www.linkedin.com/in/ton-profil">
-          <small class="note">Colle le <b>lien complet</b> de ton profil. Ton nom seul n'est pas accepté.</small></div>
-      </div>
+        <div class="f">
+          <label class="t" for="liens">
+            Lien de ton profil LinkedIn / GitHub / Kaggle
+          </label>
+
+          <input
+            type="url"
+            id="liens"
+            name="liens"
+            placeholder="https://www.linkedin.com/in/ton-profil"
+          >
+
+          <small class="note">
+            Colle le <b>lien complet</b> de ton profil.
+            Ton nom seul n'est pas accepté.
+          </small>
+        </div>
     </fieldset>
 
     <fieldset>
@@ -423,7 +436,25 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
 
     <button type="submit" id="btn">Envoyer mon inscription</button>
 
-    <div class="msg" id="ok"><h2>Inscription envoyée</h2><p>Merci ! Ton inscription est bien enregistrée. L'équipe Dataspace te contactera par email.<span id="grp" style="display:none"><br>Rejoins le groupe pour les mises à jour : <a id="grpLink" href="#" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp / Discord</a></span></p></div>
+
+    <div class="msg" id="ok">
+      <h2>Inscription envoyée</h2>
+      <p>
+        Merci ! Ton inscription est bien enregistrée.
+        L'équipe Dataspace te contactera par email.
+
+        <br><br>
+        Rejoins notre communauté :
+
+        <br>
+        <a id="discordLink" href="#" target="_blank" rel="noopener"
+           style="color:var(--cyan)">Rejoindre notre Discord</a>
+
+        <br>
+        <a id="instagramLink" href="#" target="_blank" rel="noopener"
+           style="color:var(--cyan)">Suivre notre Instagram</a>
+      </p>
+    </div>
     <div class="msg err" id="ko"><h2>Envoi impossible</h2><p>Vérifie ta connexion puis réessaie.</p></div>
   </form>
 
@@ -433,9 +464,11 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
 <script>
 const $ = (id) => document.getElementById(id);
 const form = $('form');
-const GROUP_LINK = ''; // colle ici le lien WhatsApp / Discord (ex : 'https://chat.whatsapp.com/...')
-if (GROUP_LINK) { $('grpLink').href = GROUP_LINK; $('grp').style.display = 'inline'; }
+const DISCORD_LINK = 'https://discord.gg/cJmcTE7G6';
+const INSTAGRAM_LINK = 'https://www.instagram.com/dataspace__?rpxt=MTBmb2EyY21kZnAzNw==';
 
+$('discordLink').href = DISCORD_LINK;
+$('instagramLink').href = INSTAGRAM_LINK;
 function toggleOn(sel, box, val){
   const f = () => { box.style.display = sel.value === val ? 'block' : 'none'; };
   sel.addEventListener('change', f); f();
@@ -451,14 +484,31 @@ function checkMail(){
 }
 e1.addEventListener('input', checkMail); e2.addEventListener('input', checkMail);
 
-// lien de profil : il faut un vrai lien, pas un nom
+// Lien de profil : champ facultatif
 const lk = $('liens');
-const LINK_RE = /^https?:\/\/[^\s\/]+\.[^\s]+$/i;
-function checkLink(fix){
+
+const PROFILE_LINK_RE =
+  /^https?:\/\/(?:www\.)?(?:linkedin\.com\/in\/[^\s/?#]+|github\.com\/[^\s/?#]+|kaggle\.com\/[^\s/?#]+)(?:[/?#][^\s]*)?$/i;
+
+const PROFILE_LINK_ERROR =
+  'Colle le lien complet de ton profil (ex : https://github.com/ton-profil), pas ton nom.';
+
+function checkLink(fix) {
   let v = lk.value.trim();
-  if (fix && /^(www\.|linkedin\.com|github\.com|kaggle\.com)/i.test(v)) { v = 'https://' + v; lk.value = v; }
-  lk.setCustomValidity(v === '' || LINK_RE.test(v) ? '' : 'Colle le lien complet de ton profil (ex : https://github.com/ton-profil), pas ton nom.');
+
+  // Ajoute automatiquement https://
+  if (fix && /^(?:www\.)?(?:linkedin\.com\/|github\.com\/|kaggle\.com\/)/i.test(v)) {
+    v = 'https://' + v;
+    lk.value = v;
+  }
+
+  lk.setCustomValidity(
+    v === '' || PROFILE_LINK_RE.test(v)
+      ? ''
+      : PROFILE_LINK_ERROR
+  );
 }
+
 lk.addEventListener('input', () => checkLink(false));
 lk.addEventListener('blur', () => checkLink(true));
 
