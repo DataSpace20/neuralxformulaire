@@ -195,6 +195,8 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
 .rate input:checked + span{background:var(--lime); border-color:var(--lime); color:#06120c; box-shadow:0 0 16px rgba(67,224,124,.45)}
 .rate input:focus-visible + span{outline:2px solid var(--teal); outline-offset:2px}
 .rate-legend{display:flex; justify-content:space-between; max-width:302px; font-size:12px; color:var(--muted); margin-top:5px}
+.note{display:block; margin-top:5px; font-size:12px; color:var(--muted)}
+.note b{color:var(--lime); font-weight:700}
 .hint{font-style:normal; font-weight:500; color:var(--muted); font-size:12px; transition:color .2s}
 .hint.warn{color:#ff9d8a}
 .drop{position:relative; display:block; border:1px dashed rgba(67,224,124,.5); border-radius:6px; padding:20px 16px; text-align:center;
@@ -303,7 +305,8 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
         <div class="f"><label class="t" for="etab">Université / École <i>*</i></label><input type="text" id="etab" name="etablissement" required></div>
         <div class="f"><label class="t" for="spec">Spécialité <i>*</i></label><input type="text" id="spec" name="specialite" required></div>
         <div class="f"><label class="t" for="niv">Niveau d'étude <i>*</i></label><input type="text" id="niv" name="niveau_etude" required placeholder="Ex : 3ème année, Master 1"></div>
-        <div class="f"><label class="t" for="liens">Profil LinkedIn / GitHub / Kaggle</label><input type="url" id="liens" name="liens" placeholder="https://"></div>
+        <div class="f"><label class="t" for="liens">Lien de ton profil LinkedIn / GitHub / Kaggle</label><input type="url" id="liens" name="liens" placeholder="https://www.linkedin.com/in/ton-profil">
+          <small class="note">Colle le <b>lien complet</b> de ton profil. Ton nom seul n'est pas accepté.</small></div>
       </div>
     </fieldset>
 
@@ -420,7 +423,7 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
 
     <button type="submit" id="btn">Envoyer mon inscription</button>
 
-    <div class="msg" id="ok"><h2>Inscription envoyée</h2><p>Merci ! Tu vas recevoir un email de confirmation. Rejoins le groupe pour les mises à jour : <a href="#" style="color:var(--cyan)">lien WhatsApp / Discord</a></p></div>
+    <div class="msg" id="ok"><h2>Inscription envoyée</h2><p>Merci ! Ton inscription est bien enregistrée. L'équipe Dataspace te contactera par email.<span id="grp" style="display:none"><br>Rejoins le groupe pour les mises à jour : <a id="grpLink" href="#" target="_blank" rel="noopener" style="color:var(--cyan)">WhatsApp / Discord</a></span></p></div>
     <div class="msg err" id="ko"><h2>Envoi impossible</h2><p>Vérifie ta connexion puis réessaie.</p></div>
   </form>
 
@@ -430,6 +433,8 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
 <script>
 const $ = (id) => document.getElementById(id);
 const form = $('form');
+const GROUP_LINK = ''; // colle ici le lien WhatsApp / Discord (ex : 'https://chat.whatsapp.com/...')
+if (GROUP_LINK) { $('grpLink').href = GROUP_LINK; $('grp').style.display = 'inline'; }
 
 function toggleOn(sel, box, val){
   const f = () => { box.style.display = sel.value === val ? 'block' : 'none'; };
@@ -445,6 +450,17 @@ function checkMail(){
   e2.setCustomValidity(e1.value.trim().toLowerCase() === e2.value.trim().toLowerCase() ? '' : 'Les deux emails ne correspondent pas');
 }
 e1.addEventListener('input', checkMail); e2.addEventListener('input', checkMail);
+
+// lien de profil : il faut un vrai lien, pas un nom
+const lk = $('liens');
+const LINK_RE = /^https?:\/\/[^\s\/]+\.[^\s]+$/i;
+function checkLink(fix){
+  let v = lk.value.trim();
+  if (fix && /^(www\.|linkedin\.com|github\.com|kaggle\.com)/i.test(v)) { v = 'https://' + v; lk.value = v; }
+  lk.setCustomValidity(v === '' || LINK_RE.test(v) ? '' : 'Colle le lien complet de ton profil (ex : https://github.com/ton-profil), pas ton nom.');
+}
+lk.addEventListener('input', () => checkLink(false));
+lk.addEventListener('blur', () => checkLink(true));
 
 // domaines maitrises : 1 a 3 maximum
 const mast = Array.from(document.querySelectorAll('input[name="domaines_maitrise"]'));
