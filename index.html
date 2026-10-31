@@ -212,6 +212,44 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
   *,*::before,*::after{animation:none!important; transition:none!important}
   .rv{opacity:1; transform:none}
 }
+
+/* ===== UPLOAD PROGRESS ===== */
+.progress-box{display:none;margin:4px 0 0;padding:20px;border:1px solid var(--line);border-radius:6px;background:rgba(25,195,176,.06);text-align:center}
+.progress-title{color:var(--text);font-weight:700;margin-bottom:12px}
+.progress-track{height:12px;width:100%;background:rgba(255,255,255,.08);border-radius:20px;overflow:hidden}
+.progress-fill{width:0%;height:100%;background:var(--grad);border-radius:inherit;transition:width .25s ease;box-shadow:0 0 14px rgba(25,195,176,.4)}
+.progress-percent{display:block;margin-top:10px;font-family:'Chakra Petch',sans-serif;font-size:25px;font-weight:700;color:var(--lime)}
+.progress-note{color:var(--muted);font-size:13px;margin-top:5px}
+/* ===== SOCIAL FOOTER ===== */
+.club-footer{text-align:center;margin-top:55px;padding:30px 10px;border-top:1px solid var(--line)}
+.footer-title{font-family:'Chakra Petch',sans-serif;font-size:13px;letter-spacing:3px;color:var(--muted);margin-bottom:18px}
+.social-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap}
+.social-link{display:inline-flex;align-items:center;gap:9px;padding:11px 22px;border:1px solid var(--line);border-radius:8px;color:var(--text);text-decoration:none;font-weight:700;transition:.25s ease}
+.social-link span{font-size:20px}
+.social-link.instagram:hover{border-color:#E1306C;box-shadow:0 0 18px rgba(225,48,108,.2);transform:translateY(-3px)}
+.social-link.discord:hover{border-color:#5865F2;box-shadow:0 0 18px rgba(88,101,242,.2);transform:translateY(-3px)}
+.club-footer p{color:var(--muted);font-size:12px;margin-top:22px}
+
+
+/* ===== RULEBOOK READING PANEL ===== */
+.law-container{margin:18px 0 20px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:rgba(4,16,28,.8)}
+.law-heading{padding:18px 20px 14px;border-bottom:1px solid var(--line);text-align:center;background:rgba(25,195,176,.06)}
+.law-kicker{font:700 11px 'Chakra Petch',sans-serif;letter-spacing:.2em;color:var(--lime)}
+.law-heading h3{margin:8px 0 4px;color:var(--lime);font-size:20px}
+.law-heading p{margin:0;color:var(--muted);font-size:12px}
+.law-scroll{height:340px;overflow-y:auto;overscroll-behavior:contain;padding:18px 22px;color:var(--text);line-height:1.9;text-align:right;scrollbar-color:var(--teal) #071522;scrollbar-width:thin}
+.law-scroll h4{color:var(--lime);font-size:16px;margin:18px 0 8px;padding-bottom:5px;border-bottom:1px solid rgba(25,195,176,.22)}
+.law-scroll h4:first-child{margin-top:0}
+.law-scroll p{margin:0 0 12px}
+.law-scroll ul,.law-scroll ol{padding-right:24px;margin:0 0 14px}
+.law-scroll li{margin:5px 0}
+.law-end{text-align:center;color:var(--teal);font-weight:700;padding:12px 0 2px}
+.law-status{padding:10px 14px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--line);background:rgba(25,195,176,.04)}
+.law-status.done{color:var(--lime)}
+.law-accept{margin-top:14px}
+.law-accept input:disabled{opacity:.4;cursor:not-allowed}
+@media(max-width:620px){.law-scroll{height:300px;padding:14px 16px}.law-heading h3{font-size:18px}}
+
 </style>
 </head>
 <body>
@@ -430,10 +468,68 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
     <fieldset>
       <legend>Engagement</legend>
       <label class="check"><input type="checkbox" name="engagement_presence" required><span>Je m'engage à être présent(e) pendant les 3 jours de l'événement.</span></label>
-      <label class="check"><input type="checkbox" name="accept_reglement" required><span>J'ai lu et j'accepte le règlement du hackathon.</span></label>
+
+      <section class="law-container" aria-labelledby="lawTitle">
+        <div class="law-heading">
+          <div class="law-kicker">NEURALX 2.0 · CODE OF SURVIVAL</div>
+          <h3 id="lawTitle">النظام الداخلي — NEURALX 2.0</h3>
+          <p>نادي Dataspace — ENSSEA | 22–24 أفريل 2027</p>
+        </div>
+        <div class="law-scroll" id="lawScroll" tabindex="0" aria-label="النظام الداخلي، مرّر إلى الأسفل لقراءته كاملاً" dir="rtl">
+          <h4>أولاً: أحكام عامة</h4>
+          <p><strong>المادة 1.</strong> يسري هذا النظام الداخلي على جميع المشاركين، ابتداءً من التسجيل وحتى نهاية الحدث. ويُعدّ التسجيل والتوقيع عليه قبولاً كاملاً وغير مشروط بأحكامه.</p>
+
+          <h4>ثانياً: الأهلية والفرق</h4>
+          <p><strong>المادة 2.</strong> يُخصّص الحدث حصرياً للطلبة الجامعيين المسجلين حالياً في إحدى مؤسسات التعليم العالي، والحاملين لبطاقة طالب سارية المفعول. ويؤدي الإدلاء بأي معلومات خاطئة أو انتحال صفة الغير إلى إلغاء التسجيل، أو إلى الإقصاء من الحدث إذا تم اكتشاف المخالفة لاحقاً.</p>
+          <p><strong>المادة 3.</strong> لا يضمن التسجيل القبول النهائي في الحدث، وتحتفظ اللجنة المنظمة بحق رفض أي طلب تسجيل.</p>
+          <p><strong>المادة 4.</strong> يتكوّن الفريق من خمسة (5) أعضاء كحد أقصى، ولا يجوز لأي مشارك الانتماء إلى أكثر من فريق واحد. وتُعتمد التشكيلة النهائية للفرق عند الافتتاح الرسمي، ولا يُسمح بأي تغيير لاحق إلا بعد الحصول على موافقة اللجنة المنظمة.</p>
+          <p><strong>المادة 5.</strong> يجوز للجنة المنظمة إلحاق المشاركين الذين سجلوا بصفة فردية بأحد الفرق، ويُعدّ هذا الإلحاق نهائياً.</p>
+
+          <h4>ثالثاً: السلوك والحضور</h4>
+          <p><strong>المادة 6.</strong> يلتزم جميع المشاركين باحترام باقي المشاركين والمنظمين والموجّهين وأعضاء لجنة التحكيم والطاقم الإداري للمؤسسة المستضيفة. ويُمنع منعاً باتاً كل أشكال التحرش والتمييز والإهانة والتهديد والعنف.</p>
+          <p><strong>المادة 7.</strong> يُمنع منعاً باتاً تخريب الممتلكات أو التدخل في عمل الفرق الأخرى أو محاولة الاطلاع على بياناتها أو أجهزتها دون إذن. ويتحمّل كل مشارك المسؤولية عن أي ضرر يتسبب فيه للمقر أو للتجهيزات.</p>
+          <p><strong>المادة 8.</strong> يلتزم جميع المشاركين، طوال فترة الحدث، باحترام تعليمات اللجنة المنظمة والتقيد بها.</p>
+
+          <h4>رابعاً: النزاهة</h4>
+          <p><strong>المادة 9.</strong> يبدأ العمل على المشاريع والحلول عند الإعلان عن الافتتاح الرسمي للحدث، ولا يُسمح بإعداد الحلول أو الشيفرات الخاصة بالمشروع مسبقاً أو تقديم أعمال أُنجزت قبل انطلاق الحدث. ويُسمح باستخدام المكتبات مفتوحة المصدر والنماذج والأدوات المتاحة للعموم.</p>
+          <p><strong>المادة 10.</strong> يُسمح باستخدام أدوات الذكاء الاصطناعي بمختلف أنواعها. ومع ذلك، يجب أن يكون كل فريق قادراً على شرح الحل الذي يقدمه، وفهم مكوناته، وإعادة إنتاجه والتحقق من عمله.</p>
+          <p><strong>المادة 11.</strong> تُعدّ الأفعال التالية مخالفات لقواعد النزاهة وغشاً يستوجب العقوبة:</p>
+          <ul>
+            <li>انتحال هوية شخص آخر أو تقديم عمل الغير على أنه عمل الفريق.</li>
+            <li>نسخ أعمال أو حلول فريق آخر دون إذن.</li>
+            <li>إسناد إنجاز المشروع أو الحل إلى جهة خارجية.</li>
+            <li>أي محاولة للحصول على امتياز غير مشروع أو الإخلال بمبدأ تكافؤ الفرص بين الفرق.</li>
+          </ul>
+
+          <h4>خامساً: التقييم والمسؤولية والبيانات</h4>
+          <p><strong>المادة 12.</strong> تتولى لجنة التحكيم تقييم المشاريع وفق معايير التقييم التي سيتم الإعلان عنها خلال الافتتاح الرسمي للحدث. وتُعدّ قرارات لجنة التحكيم نهائية. كما يتعين على جميع الفرق تسليم مخرجاتها قبل انتهاء الأجل المحدد.</p>
+          <p><strong>المادة 13.</strong> يحتفظ كل فريق بحقوق ملكية الكود المصدري والمشروع الذي يطوره. ويحق للمنظمين عرض المشاريع ومخرجاتها لأغراض التواصل والترويج للحدث، مع الإشارة إلى اسم الفريق وأعضائه.</p>
+          <p><strong>المادة 14.</strong> يتحمّل كل مشارك مسؤولية وضع أمتعته الشخصية في القاعة المخصصة للأعمال الموجّهة، وفقاً للتقسيم المعتمد حسب الجنس. وتسعى اللجنة المنظمة إلى توفير الظروف المناسبة للمحافظة على الأمتعة طوال فترة الحدث. كما يلتزم المشاركون باحترام تعليمات السلامة والتصريح مسبقاً بأي حساسية أو حالة صحية قد تستدعي تدخلاً أو عناية خاصة في حالات الطوارئ.</p>
+          <p><strong>المادة 15.</strong> يوافق المشاركون على قيام اللجنة المنظمة بالتقاط الصور ومقاطع الفيديو خلال الحدث، واستعمالها لأغراض التواصل والترويج، بما في ذلك نشرها عبر مواقع التواصل الاجتماعي. وتُستخدم البيانات والوثائق الشخصية المقدمة من المشاركين، بما فيها بطاقة الطالب والسيرة الذاتية، حصرياً للتحقق من الأهلية وتسيير وتنظيم الحدث، ولا يجوز بيعها أو مشاركتها لأغراض أخرى.</p>
+          <p><strong>المادة 16.</strong> يُمنع منعاً باتاً مغادرة الحرم الجامعي للمؤسسة المستضيفة لأي غرض كان. وفي حال اضطرار المشارك إلى مغادرة مكان المسابقة (المكتبة رقم 1)، يتعين عليه طلب مرافقة أحد أعضاء اللجنة المنظمة، ذهاباً وإياباً، مهما كان السبب.</p>
+
+          <h4>سادساً: العقوبات</h4>
+          <p><strong>المادة 17.</strong> يعاقب كل مشارك يخلّ بأحكام هذا النظام الداخلي بعقوبة تتناسب مع طبيعة المخالفة وجسامتها، وفق التدرج التالي:</p>
+          <ol><li>إنذار رسمي.</li><li>خصم نقاط من تقييم الفريق.</li><li>الإبعاد المؤقت عن الحدث.</li><li>الإقصاء النهائي من الحدث.</li></ol>
+          <p><strong>المادة 18.</strong> تؤدي المخالفات الجسيمة، بما فيها الغش وانتحال الهوية والعنف والتحرش والتخريب والتسبب في أضرار جسيمة، وكل فعل من شأنه تعريض سلامة الآخرين للخطر، إلى الإقصاء الفوري من الحدث دون الحاجة إلى توجيه إنذار مسبق. ويترتب على الإقصاء فقدان المشارك أو الفريق المعني الحق في الحصول على أي جائزة أو شهادة مرتبطة بالحدث.</p>
+          <div class="law-end">— نهاية النظام الداخلي —</div>
+        </div>
+        <div class="law-status" id="lawStatus">↓ مرّر النص إلى الأسفل لقراءة النظام الداخلي كاملاً.</div>
+      </section>
+
+      <label class="check law-accept"><input type="checkbox" name="accept_reglement" id="acceptLaw" required disabled><span>J'ai lu attentivement et j'accepte l'intégralité du règlement intérieur de NEURALX 2.0.</span></label>
       <label class="check"><input type="checkbox" name="accept_photos" required><span>J'accepte que mes photos soient utilisées dans la communication de Dataspace.</span></label>
       <label class="check"><input type="checkbox" name="accept_donnees" required><span>J'accepte que mes données soient utilisées uniquement pour l'organisation de l'événement.</span></label>
     </fieldset>
+
+    <div class="progress-box" id="progressBox" role="status" aria-live="polite">
+      <div class="progress-title">Envoi de votre inscription...</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <span class="progress-percent" id="progressPercent">0%</span>
+      <div class="progress-note" id="progressNote">Préparation de vos fichiers...</div>
+    </div>
 
     <button type="submit" id="btn">Envoyer mon inscription</button>
 
@@ -459,7 +555,18 @@ button::after{content:""; position:absolute; top:0; left:-60%; width:40%; height
     <div class="msg err" id="ko"><h2>Envoi impossible</h2><p>Vérifie ta connexion puis réessaie.</p></div>
   </form>
 
-  <footer>NEURALX 2.0 · Dataspace</footer>
+  <footer class="club-footer">
+    <div class="footer-title">STAY CONNECTED</div>
+    <div class="social-links">
+      <a href="https://www.instagram.com/dataspace__?rpxt=MTBmb2EyY21kZnAzNw==" target="_blank" rel="noopener noreferrer" class="social-link instagram">
+        <span>◎</span> Instagram
+      </a>
+      <a href="https://discord.gg/cJmcTE7G6" target="_blank" rel="noopener noreferrer" class="social-link discord">
+        <span>◈</span> Discord
+      </a>
+    </div>
+    <p>NEURALX 2.0 · Powered by Dataspace</p>
+  </footer>
 </div>
 
 <script>
@@ -470,6 +577,28 @@ const INSTAGRAM_LINK = 'https://www.instagram.com/dataspace__?rpxt=MTBmb2EyY21kZ
 
 $('discordLink').href = DISCORD_LINK;
 $('instagramLink').href = INSTAGRAM_LINK;
+
+// ===== RULEBOOK: require scrolling to the end before accepting =====
+const lawScroll = $('lawScroll');
+const lawStatus = $('lawStatus');
+const acceptLaw = $('acceptLaw');
+const submitBtn = $('btn');
+let lawWasRead = false;
+submitBtn.disabled = true;
+function updateSubmitState() {
+  submitBtn.disabled = !(lawWasRead && acceptLaw.checked);
+}
+lawScroll.addEventListener('scroll', () => {
+  const atBottom = lawScroll.scrollTop + lawScroll.clientHeight >= lawScroll.scrollHeight - 8;
+  if (atBottom && !lawWasRead) {
+    lawWasRead = true;
+    acceptLaw.disabled = false;
+    lawStatus.classList.add('done');
+    lawStatus.textContent = '✓ تم عرض النظام الداخلي كاملاً. يمكنك الآن الموافقة على الشروط.';
+  }
+});
+acceptLaw.addEventListener('change', updateSubmitState);
+updateSubmitState();
 function toggleOn(sel, box, val){
   const f = () => { box.style.display = sel.value === val ? 'block' : 'none'; };
   sel.addEventListener('change', f); f();
@@ -569,29 +698,81 @@ function readFile(file){
 
 form.addEventListener('submit', async (e) => {
   e.preventDefault();
+
   const btn = $('btn');
-  btn.disabled = true; btn.textContent = 'Envoi en cours...';
+  const progressBox = $('progressBox');
+  const progressFill = $('progressFill');
+  const progressPercent = $('progressPercent');
+  const progressNote = $('progressNote');
+
+  let progress = 0;
+
+  btn.disabled = true;
+  btn.textContent = 'Envoi en cours...';
   $('ko').style.display = 'none';
+  progressBox.style.display = 'block';
+
+  function updateProgress(value, message) {
+    progress = value;
+    progressFill.style.width = value + '%';
+    progressPercent.textContent = Math.round(value) + '%';
+    progressNote.textContent = message;
+  }
+
+  updateProgress(0, 'Préparation de vos fichiers...');
+
+  // Progression visuelle estimée : le mode no-cors ne donne pas
+  // au navigateur le pourcentage réel d'envoi.
+  const timer = setInterval(() => {
+    if (progress < 90) {
+      const next = Math.min(progress + 1, 90);
+      const message = next < 35
+        ? 'Préparation des documents...'
+        : next < 65
+          ? 'Envoi de votre inscription...'
+          : 'Finalisation...';
+      updateProgress(next, message);
+    }
+  }, 180);
+
   try {
     const data = {};
     new FormData(form).forEach((v, k) => {
       if (v instanceof File) return;
-      if (k in data) { if (!Array.isArray(data[k])) data[k] = [data[k]]; data[k].push(v); }
-      else data[k] = v;
+      if (k in data) {
+        if (!Array.isArray(data[k])) data[k] = [data[k]];
+        data[k].push(v);
+      } else {
+        data[k] = v;
+      }
     });
+
     data.carte_etudiant = await compressImage($('card').files[0]);
     data.cv = await readFile($('cv').files[0]);
+
     await fetch(form.action, {
-      method: 'POST', mode: 'no-cors',
+      method: 'POST',
+      mode: 'no-cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify(data)
     });
-    form.querySelectorAll('fieldset,button').forEach(el => el.style.display = 'none');
-    $('ok').style.display = 'block';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    clearInterval(timer);
+    updateProgress(100, 'Inscription envoyée !');
+
+    setTimeout(() => {
+      progressBox.style.display = 'none';
+      form.querySelectorAll('fieldset,button').forEach(el => el.style.display = 'none');
+      $('ok').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 700);
+
   } catch (err) {
+    clearInterval(timer);
+    progressBox.style.display = 'none';
     $('ko').style.display = 'block';
-    btn.disabled = false; btn.textContent = 'Envoyer mon inscription';
+    btn.disabled = false;
+    btn.textContent = 'Envoyer mon inscription';
   }
 });
 </script>
